@@ -1,0 +1,26 @@
+p {
+    font-family: 'Beau Rivage', cursive;
+    font-size: xx-large;
+    background-color: dodgerblue;
+    padding: 30px
+}
+body{
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: xx-large;
+}
+h1{
+    color:#e91e63;
+    text-decoration: underline;
+}
+#nyu-link {
+    background-color: aquamarine;
+}
+.weekdays { 
+    display: inline-block;
+    width : 400px;
+    height : 400px;
+    background-color: hotpink;
+    border-radius: 25px;
+    padding: 80px;
+
+}
