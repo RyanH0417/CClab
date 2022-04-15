@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ryan's page</title>
+    <script src="p5.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Josefin+Sans:ital@1&display=swap" rel="stylesheet">
+    <style>
+        html{
+          background-color: aqua;
+        }
+        *{ 
+            box-sizing: border-box;
+            font-family: 'Josefin Sans', sans-serif;
+            /*background-color: rgb(118, 244, 244);*/
+        }
+        #container{
+           font-size: xx-large;
+            width : 720px;
+            margin : 0 auto;
+            overflow: hidden;
+        }
+        h1{ 
+            background-color: rgb(0, 255, 85);
+            position: absolute;
+            top: 70px;
+            right: 400px;
+            margin: 0%;
+            color: crimson;
+            width: 200px;
+            padding: 128px 82px;
+            border: 2px dashed black;
+            border-radius: 10px; 
+        }
+        #intro{
+            padding: 24px 15px;
+            background-color: yellow;
+            border: 2px dashed black;
+            border-radius: 3px;
+            position: relative;
+            left: 0px;
+            top: 0px;
+            font-size: x-large;
+        }
+        #nav{
+            padding: 35px 18px;
+            font-size: xx-large;
+            position: fixed;
+            right: 50px;
+            top: 50px;
+            width: 100px;
+            height: 100px;
+            background-color: yellow;
+            border-radius: 100px;
+            -webkit-box-shadow: 5px 5px 15px 5px #000000; 
+            box-shadow: 5px 5px 15px 5px #000000;
+        }
+        #nav:hover{
+          background-color: chartreuse;
+        }
+        #passage{
+            padding: 24px 155px;
+            background-color: yellow;
+            font-size: x-large;
+            height:500px;
+            overflow-y: scroll;
+        }
+        #sketch{
+          position: relative;
+          top: 0px;
+          left: 300px;
+          width: 600px;
+          margin: 0px;
+        }
+        body{
+            margin: 0
+        }
+        p{  
+            margin: 40px 0;
+            border: 2px dashed black;
+            border-radius: 10px;
+        }
+        .column{
+            
+            background-color: yellow;
+            padding: 0px 50px;
+            position: relative;
+            font-size: x-large;
+            width: 50%;
+            float: left;
+            top: 0px;
+            left: 100px;
+            margin: 20px 77px;
+
+        }
+        #slink{
+          color: green;
+        }
+        #slink:hover{
+          color: red;
+        }
+        #images{
+          position: absolute;
+          bottom: -690px;
+          left: 71px;
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <div id = nav><a href="https://wp.nyu.edu/ryanhuang/2022/03/11/mini-project-5-imaginary-creature/ " target="_blank">more</a> </div>
+    <div id="sketch">
+        <script src="sketch.js"></script>
+      </div>
+    <div class="column">
+        <ul>
+            <li>This sketch is mainly about Anime Doraemons. <a id="slink" href="https://editor.p5js.org/RyanH0417/sketches/AQpWfeyc0" target="_blank">The sketch</a> is filled with multiple doraemons with different sizes, colors, as well as angles of rotation.</li>
+            <li> The inspiration of this was from Takashi Murakami's artwork about sunflowers.</li>
+            <li>This sketch has been implemented by p5js sketch board with coding elements like user-defined function, loop.</li>
+        </ul>
+
+    </div>
+    <div id = "container">
+        <h1><b>D<br>o<br>r<br>a<br>e<br>m<br>o<br>n</b></h1>  
+        <hr>
+        <p id = "intro">Welcome to visit my sketch gallery: DORAEMON'S WORLD</p>
+        <hr>
+        <p id = "passage"><b>Personal perspective toward this Anime:</b> Doraemon's props represent material, environment and exterior.  Nobita, on the other hand, represents the spirit, the ego, the inner.  In Doraemon, the two are in harmony.  The dreams doraemon brings to children include both the outer form of exploring the infinite possibilities of technology and the inner form of breaking through his deeply rooted personality.  This kind of breakthrough is difficult, and we may not be able to change it for a long time.  But Fujiko F. Fujio believes that at least we can live with this goal actively, so that our hearts will never be empty, so that the hope of life will always illuminate the road ahead for us.  Besides, a little effort is better than none at all.<br><b>How I finished the sketch and reflection:</b>The values stored in my lists are mainly strings and integers which represent the color parameters, scale parameters and rotation angles. Initially, I decided to directly loop through them or call them with index. However, considering the randomness of the sketch, I decided to put list variables inside the random function to generate random elements in lists following each iteration.Worth mentioned that I used translate function inside each of the user defined function and passed the coordinate parameters of these functions into the translate function. Therefore I can decide the position about this part of the sketch out of the function scope. Another reason for translate has been mentioned above, it facilitates my work about developing the sketch with more clear coordinates that start from (0, 0). User-defined functions helped me to better organize the whole project. From my perspective, this serves a similar function as oriented object programming. In detail, It allows us to separate the project into different specific part, then leave the main logic line clear and concise. I mainly passed colors, x coordinates, y coordinates, rotation angles, and scale size into my functions. These parameters was first passed into the draw creature function and shared by others altogether. This allows us to change the attributes of the imaginary creature only by revising elements inside the function brackets.</p>
+    </div>
+    <div id="images"><img src="images/Doraemon.jpg" width="350px" height="200px"></div>
+</body>
+</html>
+
