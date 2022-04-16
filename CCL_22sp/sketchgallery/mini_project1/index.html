@@ -18,7 +18,7 @@
             font-family: 'Josefin Sans', sans-serif;
             /*background-color: rgb(118, 244, 244);*/
         }
-        #container{
+        .container{
            font-size: xx-large;
             width : 720px;
             margin : 0 auto;
@@ -96,10 +96,10 @@
             margin: 20px 77px;
 
         }
-        #slink{
-          color: green;
+        .slink{
+          color: springgreen;
         }
-        #slink:hover{
+        .slink:hover{
           color: red;
         }
         .images{
@@ -117,6 +117,11 @@
             top: 546px;
             right: 404px;
         }
+        #finish{
+            background-color: ivory;
+            padding: 23px 162px;
+            color: black;
+        }
         
     </style>
 </head>
@@ -127,18 +132,19 @@
       </div>
     <div class="column">
         <ul>
-            <li>This sketch is mainly about Anime Doraemons. <a id="slink" href="https://editor.p5js.org/RyanH0417/sketches/AQpWfeyc0" target="_blank">The sketch</a> is filled with multiple doraemons with different sizes, colors, as well as angles of rotation.</li>
+            <li>This sketch is mainly about Anime Doraemons. <a class="slink" href="https://editor.p5js.org/RyanH0417/sketches/AQpWfeyc0" target="_blank">The sketch</a> is filled with multiple doraemons with different sizes, colors, as well as angles of rotation.</li>
             <li> The inspiration of this was from Takashi Murakami's artwork about sunflowers.</li>
             <li>This sketch has been implemented by p5js sketch board with coding elements like user-defined function, loop.</li>
         </ul>
 
     </div>
-    <div id = "container">
+    <div class = "container">
         <h1><b>D<br>o<br>r<br>a<br>e<br>m<br>o<br>n</b></h1>  
         <hr>
         <p id = "intro">Welcome to visit my sketch gallery: DORAEMON'S WORLD</p>
         <hr>
         <p id = "passage"><b>Personal perspective toward this Anime:</b> Doraemon's props represent material, environment and exterior.  Nobita, on the other hand, represents the spirit, the ego, the inner.  In Doraemon, the two are in harmony.  The dreams doraemon brings to children include both the outer form of exploring the infinite possibilities of technology and the inner form of breaking through his deeply rooted personality.  This kind of breakthrough is difficult, and we may not be able to change it for a long time.  But Fujiko F. Fujio believes that at least we can live with this goal actively, so that our hearts will never be empty, so that the hope of life will always illuminate the road ahead for us.  Besides, a little effort is better than none at all.<br><b>How I finished the sketch and reflection:</b>The values stored in my lists are mainly strings and integers which represent the color parameters, scale parameters and rotation angles. Initially, I decided to directly loop through them or call them with index. However, considering the randomness of the sketch, I decided to put list variables inside the random function to generate random elements in lists following each iteration.Worth mentioned that I used translate function inside each of the user defined function and passed the coordinate parameters of these functions into the translate function. Therefore I can decide the position about this part of the sketch out of the function scope. Another reason for translate has been mentioned above, it facilitates my work about developing the sketch with more clear coordinates that start from (0, 0). User-defined functions helped me to better organize the whole project. From my perspective, this serves a similar function as oriented object programming. In detail, It allows us to separate the project into different specific part, then leave the main logic line clear and concise. I mainly passed colors, x coordinates, y coordinates, rotation angles, and scale size into my functions. These parameters was first passed into the draw creature function and shared by others altogether. This allows us to change the attributes of the imaginary creature only by revising elements inside the function brackets.</p>
+        <div><p  id="finish">PROJECT LIBRARY<br><br><a class = "slink" href="https://wp.nyu.edu/ryanhuang/2022/03/11/mini-project-5-imaginary-creature/" target="_blank">DORAEMON's WORLD</a><br><br><a class = "slink" href="https://wp.nyu.edu/ryanhuang/2022/03/18/mini-project-6-object-dancers/" target="_blank">OBJECT DANCER</a><br><br><a class = "slink" href="https://wp.nyu.edu/ryanhuang/2022/03/30/project-a-generative-visual/" target="_blank">GENERATIVE VISUAL</a><br><br> <a class = "slink" href="https://wp.nyu.edu/ryanhuang/2022/03/04/mini-project-4/" target="_blank">CREATIVE PATTERN</a></p></div>
     </div>
     <div class="images" id="image1"><img src="images/Doraemon.jpg" width="350px" height="200px"></div>
     <div class="images" id="image2"><img src="images/d1.png" width="485px" height="300px"></div>
