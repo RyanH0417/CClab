@@ -150,7 +150,7 @@ function Mode1() {
     for (let i = 0; i < sparks.length; i++) {
       for (let j = 0; j < sparks[i].length; j++) {
         s = sparks[i][j];
-        if (s.R > random(100, 250)) {
+        if (s.R > random(120, 250)) {
           sparks[i].splice(j, 1);
         } else {
           s.update();
