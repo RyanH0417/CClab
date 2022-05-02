@@ -94,6 +94,7 @@ function draw() {
 
   //Countdown to end the game
   if (timer <= 0) {
+    cursor()
     background(10);
     GameStart = false;
     Mode1Start = false;
@@ -199,6 +200,7 @@ function Mode2() {
 }
 
 function initalMode1() {
+  noCursor();
   background(10);
   score = 0;
   scatterNum = 0;
@@ -217,6 +219,7 @@ function AddTargets() {
 }
 
 function initalMode2() {
+  noCursor();
   background(10);
   score = 0;
   sparks.length = 0;
