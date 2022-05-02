@@ -1,0 +1,52 @@
+body{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html{
+    background-color:#121212;
+    color: #FAF9F6;
+    font-family: 'Josefin Sans', sans-serif;
+    text-align: center;
+}
+.topmenu{
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: dimgrey;
+    font-size: 15px;
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    opacity: .7;
+}
+.Title{
+    margin-top: 60px;
+    font-size: 80px;
+}
+.nexttitle{
+    font-size: 25px;
+    margin-top: 15px;
+    margin-bottom: 40px;
+}
+#line1{
+    padding-left: 300px;
+}
+#mywork{
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+.direction{
+    text-align: left;
+    margin-top: 80px;
+    font-size: 60px;
+    padding-left: 80px;
+    padding-right: 400px;
+}
+.myword{
+    text-align: left;
+    font-size: 45px;
+    padding-left: 80px;
+    padding-right: 400px;
+}
+
