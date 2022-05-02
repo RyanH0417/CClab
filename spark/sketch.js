@@ -88,7 +88,7 @@ function draw() {
     textSize(25);
     fill(255);
     text("Time : " + timer, width / 2 - 100, 100)
-    text("Scorce : " + score, width / 2 + 100, 100)
+    text("score : " + score, width / 2 + 100, 100)
     gun(mouseX, mouseY);
   }
 
@@ -100,7 +100,7 @@ function draw() {
     Mode2Start = false;
     sparked = false;
     textSize(45);
-    text("Your Scorce : " + score, width / 2, height / 2 - 80)
+    text("Your score : " + score, width / 2, height / 2 - 80)
     Mode1_Button.show();
     Mode2_Button.show();
     waitTime = (int)(millis() / 1000);
