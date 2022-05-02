@@ -4,7 +4,7 @@ var targets = [];
 var targetNum = 6;
 var targetSize = 50;
 
-let maxPoints = 150;
+let maxPoints = 300;
 let sparks = [];
 let sparked = false;
 let dsprRange = 250;
@@ -124,7 +124,7 @@ function Mode1() {
     AddTargets();
   }
 
-  let gravity = createVector(0, 0.1);
+  let gravity = createVector(0, 0.01);
 
   //targets
   for (let i = 0; i < targets.length; i++) {
@@ -299,7 +299,7 @@ function AddSpark() {
 
   let spark = [];
   for (let i = 0; i < maxPoints; i++) {
-    spark[i] = new Spark(mouseX, mouseY, random(2, 8), random(colorPalette), random(0, 360), random(0.5, 5));
+    spark[i] = new Spark(mouseX, mouseY, random(2, 8), random(colorPalette), random(0, 360), random(0.5,5));
   }
   sparks.push(spark);
 }
