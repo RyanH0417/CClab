@@ -46,7 +46,7 @@ function preload() {
 }
 
 function setup() {
-  let myCan = createCanvas(window.innerWidth , 815);
+  let myCan = createCanvas(window.innerWidth, 815);
   myCan.parent('mywork')
   textAlign(CENTER);
 
@@ -205,13 +205,19 @@ function Mode2() {
     t.edges();
     t.displayMode2();
 
-    if (dist(t.pos.x, t.pos.y, mouseX, mouseY) <= t.s) {
-      t.c = color(255);
-      score++;
+    t.checkHit()
+    if (t.hit10) {
+      score += 7
       if (!elecSound.isPlaying()) {
         elecSound.play();
       }
-      sparks.push(new Spark(mouseX, mouseY, random(2, 8), random(palette3), random(0, 360), random(0.5, 5)));
+      sparks.push(new Spark(mouseX, mouseY, random(2, 8), t.c, random(0, 360), random(0.5, 5)));
+    } else if (t.hit1) {
+      score += 2
+      if (!elecSound.isPlaying()) {
+        elecSound.play();
+      }
+      sparks.push(new Spark(mouseX, mouseY, random(2, 8), t.c, random(0, 360), random(0.5, 5)));
     } else {
       t.c = TargetColor;
       elecSound.stop();
@@ -423,14 +429,45 @@ class Target {
       x += radius * cos(n * time);
       y += radius * sin(n * time);
 
-      stroke(this.c);
-      noFill();
+      fill(palette1[i+2])
+      stroke('#005582')
+
+      if (i == 0 && this.hit1) {
+        strokeWeight(3)
+        stroke(this.c)
+      } else if (i == 1 && this.hit10) {
+        strokeWeight(3)
+        stroke(this.c)
+      } else {
+        strokeWeight(1)
+      }
+
       ellipse(prevx, prevy, radius * 2);
-      line(prevx, prevy, x, y);
+      //line(prevx, prevy, x, y);
+
+      if (i == 1) { // middle
+        this.second = {
+          x: prevx,
+          y: prevy,
+          d: radius * 2
+        }
+      }
     }
     pop();
 
     time += 0.05;
+  }
+
+  // check which cicle hit
+  checkHit() {
+    this.hit10 = dist(this.second.x, this.second.y, mouseX, mouseY) <= this.second.d
+    this.hit1 = dist(this.pos.x, this.pos.y, mouseX, mouseY) <= this.s
+
+    if (this.hit10) {
+      this.c = color('#3bd6c6');
+    } else if (this.hit1) {
+      this.c = color('#b3ecec');
+    }
   }
 
   mouseInteraction() {
@@ -444,63 +481,63 @@ class Target {
 }
 class Particle {
   constructor(x, y) {
-      this.x = x;
-      this.y = y;
-      this.vx = random(-0.7, 0.7);
-      this.vy = random(-5, -1);
-      this.alpha = 255;
+    this.x = x;
+    this.y = y;
+    this.vx = random(-0.7, 0.7);
+    this.vy = random(-5, -1);
+    this.alpha = 255;
   }
 
   finished() {
-      return this.alpha < 0;
+    return this.alpha < 0;
   }
 
   update() {
-      this.x += this.vx;
-      this.y += this.vy;
-      this.alpha -= 1.5;
+    this.x += this.vx;
+    this.y += this.vy;
+    this.alpha -= 1.5;
   }
 
   show() {
-      noStroke();
-      fill(255, this.alpha);
-      ellipse(this.x, this.y, 16);
+    noStroke();
+    fill(255, this.alpha);
+    ellipse(this.x, this.y, 16);
   }
 }
 class Spark {
 
   //reference： https://openprocessing.org/sketch/1527178
   constructor(x, y, radius, color, angle, speed) {
-      this.pos = createVector(x, y);
-      this.x = x;
-      this.y = y;
+    this.pos = createVector(x, y);
+    this.x = x;
+    this.y = y;
 
-      this.radius = radius;
-      this.color = color;
-      this.angle = angle;
-      this.speed = speed;
-      this.R = 0;
-      this.vel = createVector(0, 0);
-      this.acc = createVector(cos(this.angle) * this.speed, sin(this.angle) * this.speed);
+    this.radius = radius;
+    this.color = color;
+    this.angle = angle;
+    this.speed = speed;
+    this.R = 0;
+    this.vel = createVector(0, 0);
+    this.acc = createVector(cos(this.angle) * this.speed, sin(this.angle) * this.speed);
   }
 
   applyForce(force) {
-      this.acc.add(force);
-    }
+    this.acc.add(force);
+  }
 
   update() {
-      this.vel.add(this.acc);
-      this.pos.add(this.vel);
-      this.acc.set(0, 0);
-      this.R = sqrt((this.pos.x - this.x) * (this.pos.x - this.x) + (this.pos.y - this.y) * (this.pos.y - this.y));
+    this.vel.add(this.acc);
+    this.pos.add(this.vel);
+    this.acc.set(0, 0);
+    this.R = sqrt((this.pos.x - this.x) * (this.pos.x - this.x) + (this.pos.y - this.y) * (this.pos.y - this.y));
   }
 
   points() {
-      push();
-      noStroke();
-      fill(this.color);
-      circle(this.pos.x, this.pos.y, this.radius);
-      pop();
+    push();
+    noStroke();
+    fill(this.color);
+    circle(this.pos.x, this.pos.y, this.radius);
+    pop();
   }
 
 
