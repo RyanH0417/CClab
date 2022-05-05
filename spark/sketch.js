@@ -14,6 +14,7 @@ let palette2 = ["#daf8e3", "#97ebdb", "#00c2c7", "#0086ad", "#005582"];
 let palette3 = ["#6749dc", "#ad51f3", "#f64cd5"];
 
 let GameStart = false;
+let firstGame = true;
 
 let Mode1_Button;
 let Mode2_Button;
@@ -21,7 +22,7 @@ let Mode2_Button;
 let Mode1Start = false;
 let Mode2Start = false;
 
-let timer;
+let timer = 0;
 let waitTime = 0;
 let score = 0;
 let Addscore = false;
@@ -31,10 +32,13 @@ let TargetColor;
 let c = ['#ff00c1', '#9600ff', '#4900ff', '#00ff85', '#00b8ff', '#00fff9']
 
 let time = 0;
-let addtarget = true;
+let addTargets = true;
 let scatterNum = 0;
 
 let clickSound, sparkSound, elecSound;
+let city;
+
+let particles = [];
 function preload() {
   clickSound = loadSound("assets/click.mp3");
   sparkSound = loadSound("assets/spark.mp3");
@@ -42,7 +46,7 @@ function preload() {
 }
 
 function setup() {
-  myCan = createCanvas(window.innerWidth , 815);
+  let myCan = createCanvas(window.innerWidth , 815);
   myCan.parent('mywork')
   textAlign(CENTER);
 
@@ -54,6 +58,7 @@ function setup() {
     Mode1Start = true;
     Mode2Start = false;
     GameStart = true;
+    firstGame = false;
     Mode1_Button.hide();
     Mode2_Button.hide();
   })
@@ -66,15 +71,17 @@ function setup() {
     Mode1Start = false;
     Mode2Start = true;
     GameStart = true;
+    firstGame = false;
     Mode1_Button.hide();
     Mode2_Button.hide();
   })
 }
 
 function draw() {
-  background(10, 25);
+
   Mode2_Button.position(width / 2 + 50, height);
   Mode1_Button.position(width / 2 - 200, height);
+
   if (Mode1Start) {
     Mode1();
   }
@@ -84,6 +91,7 @@ function draw() {
   }
 
   if (GameStart) {
+    background(10, 25);
     timer = 60 - (int)(millis() / 1000) + waitTime;
     textSize(25);
     fill(255);
@@ -95,17 +103,39 @@ function draw() {
   //Countdown to end the game
   if (timer <= 0) {
     cursor()
-    background(10);
     GameStart = false;
     Mode1Start = false;
     Mode2Start = false;
     sparked = false;
-    textSize(45);
-    text("Your score : " + score, width / 2, height / 2 - 80)
     Mode1_Button.show();
     Mode2_Button.show();
+
+    ShowParticle(width / 2 - 400, height - 10);
+    ShowParticle(width / 2 + 400, height - 10);
+
+    if (!firstGame) {
+      push();
+      textSize(45);
+      fill(255)
+      text("Your score : " + score, width / 2, height / 2 - 80)
+      pop();
+    }
     waitTime = (int)(millis() / 1000);
     inital = false;
+  }
+}
+
+function ShowParticle(x, y) {
+  background(0);
+  let p = new Particle(x, y);
+  particles.push(p);
+  for (let i = particles.length - 1; i >= 0; i--) {
+    particles[i].update();
+    particles[i].show();
+    if (particles[i].finished()) {
+      // remove this particle
+      particles.splice(i, 1);
+    }
   }
 }
 
@@ -117,11 +147,11 @@ function Mode1() {
   }
 
   if (frameCount % 2000 == 0) {
-    addtarget = false;
+    addTargets = false;
   }
 
-  if (!addtarget) {
-    addtarget = true;
+  if (!addTargets) {
+    addTargets = true;
     AddTargets();
   }
 
@@ -151,7 +181,7 @@ function Mode1() {
     for (let i = 0; i < sparks.length; i++) {
       for (let j = 0; j < sparks[i].length; j++) {
         s = sparks[i][j];
-        if (s.R > random(120, 250)) {
+        if (s.R > random(130, 300)) {
           sparks[i].splice(j, 1);
         } else {
           s.update();
@@ -190,7 +220,7 @@ function Mode2() {
 
   for (let i = 0; i < sparks.length; i++) {
     s = sparks[i];
-    if (s.R > random(50, 100)) {
+    if (s.R > random(50, 130)) {
       sparks.splice(i, 1);
     } else {
       s.update();
@@ -264,7 +294,7 @@ function mouseClicked() {
     }
   }
 
-  if(sparked){
+  if (sparked) {
     if (Addscore) {
       score += 100;
       Addscore = false;
@@ -273,8 +303,7 @@ function mouseClicked() {
     }
   }
 
-
-  if (Mode1Start && targets.length > scatterNum) {
+  if (Mode1Start && targets.length > scatterNum && dist(mouseX, mouseY, width / 2, height / 2) < 200) {
     scatterNum++;
     clickSound.play();
     sparked = true;
@@ -302,7 +331,7 @@ function AddSpark() {
 
   let spark = [];
   for (let i = 0; i < maxPoints; i++) {
-    spark[i] = new Spark(mouseX, mouseY, random(2, 8), random(colorPalette), random(0, 360), random(0.5,5));
+    spark[i] = new Spark(mouseX, mouseY, random(2, 8), random(colorPalette), random(0, 360), random(0.5, 5));
   }
   sparks.push(spark);
 }
@@ -411,6 +440,31 @@ class Target {
         this.s -= 1;
       }
     }
+  }
+}
+class Particle {
+  constructor(x, y) {
+      this.x = x;
+      this.y = y;
+      this.vx = random(-1, 1);
+      this.vy = random(-5, -1);
+      this.alpha = 255;
+  }
+
+  finished() {
+      return this.alpha < 0;
+  }
+
+  update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      this.alpha -= 2;
+  }
+
+  show() {
+      noStroke();
+      fill(255, this.alpha);
+      ellipse(this.x, this.y, 16);
   }
 }
 class Spark {
