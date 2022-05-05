@@ -4,7 +4,7 @@ body{
     padding: 0;
 }
 html{
-    background-color:#121212;
+    background-image: linear-gradient(to bottom right, dimgrey,black );
     color: #FAF9F6;
     font-family: 'Josefin Sans', sans-serif;
     text-align: center;
@@ -12,7 +12,7 @@ html{
 .topmenu{
     padding-left: 15px;
     padding-right: 15px;
-    background-color: dimgrey;
+    background-color: black;
     font-size: 15px;
     display: flex;
     justify-content: space-between;
