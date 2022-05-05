@@ -446,7 +446,7 @@ class Particle {
   constructor(x, y) {
       this.x = x;
       this.y = y;
-      this.vx = random(-1, 1);
+      this.vx = random(-0.7, 0.7);
       this.vy = random(-5, -1);
       this.alpha = 255;
   }
@@ -458,7 +458,7 @@ class Particle {
   update() {
       this.x += this.vx;
       this.y += this.vy;
-      this.alpha -= 2;
+      this.alpha -= 1.5;
   }
 
   show() {
