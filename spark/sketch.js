@@ -1,3 +1,4 @@
+//setting global variables
 var gunSize = 50;
 var gunWidth = 1;
 var targets = [];
@@ -8,11 +9,12 @@ let maxPoints = 300;
 let sparks = [];
 let sparked = false;
 let dsprRange = 250;
-
+//color to choose
 let palette1 = ["#ff00c1", "#9600ff", "#4900ff", "#00b8ff", "#00fff9"];
 let palette2 = ["#daf8e3", "#97ebdb", "#00c2c7", "#0086ad", "#005582"];
 let palette3 = ["#6749dc", "#ad51f3", "#f64cd5"];
 
+//boolean variable for checking conditions
 let GameStart = false;
 let firstGame = true;
 
@@ -22,11 +24,12 @@ let Mode2_Button;
 let Mode1Start = false;
 let Mode2Start = false;
 
+//time count
 let timer = 0;
 let waitTime = 0;
 let score = 0;
 let Addscore = false;
-let inital = false;
+let initial = false;
 
 let TargetColor;
 let c = ['#ff00c1', '#9600ff', '#4900ff', '#00ff85', '#00b8ff', '#00fff9']
@@ -34,10 +37,10 @@ let c = ['#ff00c1', '#9600ff', '#4900ff', '#00ff85', '#00b8ff', '#00fff9']
 let time = 0;
 let addTargets = true;
 let scatterNum = 0;
-
+//asset variable
 let clickSound, sparkSound, elecSound;
 let city;
-
+//menu decoration variable
 let particles = [];
 function preload() {
   clickSound = loadSound("assets/click.mp3");
@@ -50,6 +53,7 @@ function setup() {
   myCan.parent('mywork')
   textAlign(CENTER);
 
+  //create button, assign the method
   Mode1_Button = createButton("Mode 1");
   Mode1_Button.style('font-size', '20px');
   Mode1_Button.style('padding', '10px 30px');
@@ -62,7 +66,7 @@ function setup() {
     Mode1_Button.hide();
     Mode2_Button.hide();
   })
-
+  //create button, assign the method
   Mode2_Button = createButton("Mode 2");
   Mode2_Button.style('font-size', '20px');
   Mode2_Button.style('padding', '10px 30px');
@@ -78,10 +82,10 @@ function setup() {
 }
 
 function draw() {
-
+  
   Mode2_Button.position(width / 2 + 50, height);
   Mode1_Button.position(width / 2 - 200, height);
-
+  //initiate the game
   if (Mode1Start) {
     Mode1();
   }
@@ -112,7 +116,7 @@ function draw() {
 
     ShowParticle(width / 2 - 400, height - 10);
     ShowParticle(width / 2 + 400, height - 10);
-
+    //show score
     if (!firstGame) {
       push();
       textSize(45);
@@ -121,10 +125,10 @@ function draw() {
       pop();
     }
     waitTime = (int)(millis() / 1000);
-    inital = false;
+    initial = false;
   }
 }
-
+//menu decoration
 function ShowParticle(x, y) {
   background(0);
   let p = new Particle(x, y);
@@ -141,20 +145,20 @@ function ShowParticle(x, y) {
 
 function Mode1() {
 
-  if (!inital) {
-    inital = true;
-    initalMode1();
+  if (!initial) {
+    initial = true;
+    initialMode1();
   }
-
+  //set the rotorelief randomness
   if (frameCount % 2000 == 0) {
     addTargets = false;
   }
-
+  //adding target
   if (!addTargets) {
     addTargets = true;
     AddTargets();
   }
-
+  //set up falling condition for spark
   let gravity = createVector(0, 0.01);
 
   //targets
@@ -194,9 +198,9 @@ function Mode1() {
 }
 
 function Mode2() {
-  if (!inital) {
-    inital = true;
-    initalMode2();
+  if (!initial) {
+    initial = true;
+    initialMode2();
   }
 
   //targets
@@ -204,8 +208,9 @@ function Mode2() {
     t.updateMode2();
     t.edges();
     t.displayMode2();
-
+    //assign the boolean to see which circle is hitted
     t.checkHit()
+    //different circles with different scores added
     if (t.hit10) {
       score += 7
       if (!elecSound.isPlaying()) {
@@ -223,7 +228,7 @@ function Mode2() {
       elecSound.stop();
     }
   }
-
+  //set up the spark effect
   for (let i = 0; i < sparks.length; i++) {
     s = sparks[i];
     if (s.R > random(50, 130)) {
@@ -234,8 +239,8 @@ function Mode2() {
     }
   }
 }
-
-function initalMode1() {
+//starting condition mode1
+function initialMode1() {
   noCursor();
   background(10);
   score = 0;
@@ -245,7 +250,7 @@ function initalMode1() {
   AddTargets();
   sparked = false;
 }
-
+//making a rotorelief
 function AddTargets() {
   let t = [];
   for (let i = 0; i < targetNum; i++) {
@@ -253,8 +258,8 @@ function AddTargets() {
   }
   targets.push(t);
 }
-
-function initalMode2() {
+//setting start condition for mode2
+function initialMode2() {
   noCursor();
   background(10);
   score = 0;
@@ -264,7 +269,7 @@ function initalMode2() {
   targets[0] = new Target(width / 2, height / 2, TargetColor, targetSize, 1.5, 0.02);
   sparked = false;
 }
-
+//aim set
 function gun(x, y) {
   push();
   noFill();
@@ -275,7 +280,7 @@ function gun(x, y) {
   line(x - 40, y, x + 40, y);
   pop();
 }
-
+//change your cursor shape when press the mouse
 function mousePressed() {
   gunSize = 30;
   gunWidth = 3;
@@ -287,12 +292,13 @@ function mouseReleased() {
 }
 
 function mouseClicked() {
-  //spark mode
+  //click to see the spark
   for (let i = 0; i < targets.length; i++) {
     for (let j = 0; j < targets[i].length; j++) {
       t = targets[i][j];
       if (dist(t.pos.x, t.pos.y, mouseX, mouseY) <= t.s && t.scatter) {
         Addscore = true;
+        //reassign it, easy trick to create a new one and automatically delete the old one
         targets[i][j] = new Target(random(targetSize, width - targetSize), random(targetSize, height - targetSize), c[j], targetSize, 1.5 - 0.2 * j, 0.03);
         targets[i][j].scatter = true;
         AddSpark();
@@ -308,7 +314,7 @@ function mouseClicked() {
       score -= 100;
     }
   }
-
+  //click to scatter the rotorelief
   if (Mode1Start && targets.length > scatterNum && dist(mouseX, mouseY, width / 2, height / 2) < 200) {
     scatterNum++;
     clickSound.play();
@@ -320,7 +326,7 @@ function mouseClicked() {
     }
   }
 }
-
+//construct the spark effect, the speed, the color palette
 function AddSpark() {
   let colorPalette;
   let num = random(1);
@@ -469,7 +475,7 @@ class Target {
       this.c = color('#b3ecec');
     }
   }
-
+  //fall the rotorelief apart
   mouseInteraction() {
     if (this.scatter) {
       this.rotp1 *= random(1.01, 1.03)
@@ -479,6 +485,7 @@ class Target {
     }
   }
 }
+//particle class: for menu decoration use
 class Particle {
   constructor(x, y) {
     this.x = x;
@@ -504,6 +511,7 @@ class Particle {
     ellipse(this.x, this.y, 16);
   }
 }
+//spark effect, when you click the circle, it would be generated
 class Spark {
 
   //reference： https://openprocessing.org/sketch/1527178
