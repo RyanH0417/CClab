@@ -4,7 +4,7 @@ body{
     padding: 0;
 }
 html{
-    background-image: linear-gradient(to bottom right, dimgrey,black );
+    background-image: linear-gradient(to bottom right, rgb(253, 1, 220),rgb(145, 205, 16));
     color: #FAF9F6;
     font-family: 'Josefin Sans', sans-serif;
     text-align: center;
