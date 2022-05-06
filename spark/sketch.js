@@ -44,8 +44,8 @@ let city;
 let particles = [];
 function preload() {
   clickSound = loadSound("assets/click.mp3");
-  sparkSound = loadSound("assets/spark.mp3");
-  elecSound = loadSound("assets/electricity.mp3");
+  sparkSound = loadSound("assets/spark2.mp3");
+  elecSound = loadSound("assets/piano.mp3");
 }
 
 function setup() {
@@ -467,7 +467,7 @@ class Target {
   // check which cicle hit
   checkHit() {
     this.hit10 = dist(this.second.x, this.second.y, mouseX, mouseY) <= this.second.d
-    this.hit1 = dist(this.pos.x, this.pos.y, mouseX, mouseY) <= this.s
+    this.hit1 = dist(this.pos.x, this.pos.y, mouseX, mouseY) <= this.s + 45
 
     if (this.hit10) {
       this.c = color('#3bd6c6');
