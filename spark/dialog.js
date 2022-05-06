@@ -21,24 +21,24 @@ function draw() {
   background(220);
 
   if (frameCount == 100) {
-    dialog1.style('opacity', '.7');
+    dialog1.style('opacity', '.9');
   }
 }
 
 function dialog1Clicked() {
-  dialog2.style('opacity', '.7');
+  dialog2.style('opacity', '.9');
   dialog1.style('opacity','0')
 }
 
 function dialog2Clicked() {
-  dialog3.style('opacity','.7');
+  dialog3.style('opacity','.9');
   dialog2.style('opacity','0')
 }
 function dialog3Clicked() {
-  dialog4.style('opacity', '.7');
+  dialog4.style('opacity', '.9');
   dialog3.style('opacity','0')
 }
 function dialog4Clicked() {
-  dialog5.style('opacity', '.7');
+  dialog5.style('opacity', '.9');
   dialog4.style('opacity','0')
 }
