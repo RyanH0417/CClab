@@ -1,48 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ryan's page</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Josefin+Sans:ital@1&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Josefin+Sans:ital@1&family=Tapestry&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <main>
-      <div class="topmenu">
-        <p>Hit them! hit these circles!</p>
-        <p>make the sky colorful!</p>
-      </div>
+    <link rel="stylesheet" type="text/css" href="style2.css">
+    <title>INTRO</title>
+</head>
+<body>
+    <div class="dialog" id="dialog1">Hello, how are you doing?</div>
+    <div class="dialog" id="dialog2">I know it</div>
+    <div class="dialog" id="dialog3">Lockdown and final<br>can be stressful</div>
+    <div class="dialog" id="dialog4">but don't you think the sky<br>in front of you is<br>too monotonous?</div>
+    <div class="dialog" id="dialog5"><a href="indexMain.html">lets light this up</a></div>
+    <script src="dialog.js"></script>
 
-      <div class = "Title">
-        <h>Light up!! the silent night</h>
-      </div>
 
-      <div class = "nexttitle">play the music on top-left corner when you play mode 1<br>close the music when you want to play mode2</div>
-      <hr id = 'line1'>
-      <div id="mywork"><script src="sketch.js"></script>
-        <script src="spark.js"></script>
-      </div>
-      <hr id = 'line2'>
 
-      <div class = "container">
-        <div class = "direction">SIMPLE RULES:<br><ul><li>CLICK THE CIRCLE AND HIT <b>AS MUCH AS</b> YOU CAN(MODE ONE)</li><li>FOLLOW THE CIRCLE(MODE TWO)</li><li>RELAX!</li></ul> </div>
-        <div class = "myword">This interactive artwork was created in Shanghai in the spring of '22, when we were in the midst of an <b>EPIDEMIC LOCKDOWN</b> that was causing a lot of <b>MENTAL STRESS</b> to many of my collegues, friends, family, and myself. This sketch was designed to be a <b>SIMPLE AND FUN COMPOSITION</b> and <b>MOVEMENT</b> of circles, as well as an <b>INTUITIVE WAY to ENGAGE</b> and enjoy the magnificent dispersion effect. </div>
-      </div>
-      <audio controls class="audio">
-        <source src="assets/Else-Origine.mp3" type="audio/mp3">
+
+    <video autoplay loop muted>
+        <source src="assets/night4.mp4" type="video/mp4"/>
+    </video>
+    <audio controls class="audio">
+        <source src="assets/silentcity.mp3" type="audio/mp3">
     </audio>
-
-    </main>
-  </body>
-</html>
-
+</body>
 </html>
