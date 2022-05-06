@@ -1,5 +1,5 @@
 //setting global variables
-var gunSize = 50;
+var gunSize = 3;
 var gunWidth = 1;
 var targets = [];
 var targetNum = 6;
@@ -79,10 +79,11 @@ function setup() {
     Mode1_Button.hide();
     Mode2_Button.hide();
   })
+
 }
 
 function draw() {
-  
+
   Mode2_Button.position(width / 2 + 50, height);
   Mode1_Button.position(width / 2 - 200, height);
   //initiate the game
@@ -272,22 +273,28 @@ function initialMode2() {
 //aim set
 function gun(x, y) {
   push();
-  noFill();
-  stroke(150);
-  strokeWeight(gunWidth);
-  circle(x, y, gunSize);
-  line(x, y - 40, x, y + 40);
-  line(x - 40, y, x + 40, y);
+  rectMode(CENTER)
+  fill(255)
+  noStroke()
+  rect(x, y, gunSize, gunSize)
+  rect(x - 3 * gunSize, y - 3 * gunSize, gunSize, gunSize)
+  rect(x - 2 * gunSize, y - 2 * gunSize, gunSize, gunSize)
+  rect(x + 3 * gunSize, y - 3 * gunSize, gunSize, gunSize)
+  rect(x + 2 * gunSize, y - 2 * gunSize, gunSize, gunSize)
+  rect(x - 3 * gunSize, y + 3 * gunSize, gunSize, gunSize)
+  rect(x - 2 * gunSize, y + 2 * gunSize, gunSize, gunSize)
+  rect(x + 3 * gunSize, y + 3 * gunSize, gunSize, gunSize)
+  rect(x + 2 * gunSize, y + 2 * gunSize, gunSize, gunSize)
   pop();
 }
 //change your cursor shape when press the mouse
 function mousePressed() {
-  gunSize = 30;
+  gunSize = 6;
   gunWidth = 3;
 }
 
 function mouseReleased() {
-  gunSize = 50;
+  gunSize = 3;
   gunWidth = 1;
 }
 
@@ -435,7 +442,7 @@ class Target {
       x += radius * cos(n * time);
       y += radius * sin(n * time);
 
-      fill(palette1[i+2])
+      fill(palette1[i + 2])
       stroke('#005582')
 
       if (i == 0 && this.hit1) {
