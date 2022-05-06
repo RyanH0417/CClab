@@ -4,59 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Josefin+Sans:ital@1&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Josefin+Sans:ital@1&family=Tapestry&display=swap" rel="stylesheet">
-    <title>Document</title>
-    <style>
-        *{  
-                   margin: 0px;  
-                   padding: 0px;
-                   font-family: 'Josefin Sans', sans-serif;  
-               }
-               .audio{
-                    
-                    position: absolute;
-                    top: 0%;
-                    left: 0%;
-                    opacity: 0.7;
-                }
-                .audio:hover{
-                    opacity: 1;
-                }  
-               video{  
-                   position: fixed;  
-                   right: 0px;  
-                   bottom: 0px;  
-                   min-width: 100%;  
-                   min-height: 100%;  
-                   height: auto;  
-                   width: auto;    
-                   z-index:-11
-               }  
-               source{  
-                   min-width: 100%;  
-                   min-height: 100%;  
-                   height: auto;  
-                   width: auto;  
-               } 
-             .direct{
-                border-radius: 5%;
-                position: absolute;
-                left: 20%;
-                bottom: 30%;
-                text-align: center;
-                font-size: 20px;
-                color: black;
-                background-color: rgb(16, 174, 227);
-             }
-       </style>
+    <link rel="stylesheet" type="text/css" href="style2.css">
+    <title>INTRO</title>
 </head>
 <body>
-    <div class = 'direct'><p><b>I know it <br>lockdown and final can be stressful<br> do you wish to play a game <br>to interact with circles and<br><a href="index.html">light the city sky?</a></div>
+    <div class="dialog" id="dialog1">Hello, how are you doing?</div>
+    <div class="dialog" id="dialog2">I know it</div>
+    <div class="dialog" id="dialog3">Lockdown and final<br>can be stressful</div>
+    <div class="dialog" id="dialog4">but don't you think the sky<br>in front of you is<br>too monotonous?</div>
+    <div class="dialog" id="dialog5"><a href="index.html">lets light this up</a></div>
+    <script src="dialog.js"></script>
+
+
+
+
     <video autoplay loop muted>
         <source src="assets/night4.mp4" type="video/mp4"/>
     </video>
