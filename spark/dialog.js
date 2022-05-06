@@ -20,7 +20,7 @@ function setup() {
 function draw() {
   background(220);
 
-  if (frameCount == .700) {
+  if (frameCount == 100) {
     dialog1.style('opacity', '.7');
   }
 }
