@@ -14,7 +14,7 @@ body{
 }
 html{
     background-image: linear-gradient(to bottom right, rgb(253, 1, 220),rgb(145, 205, 16));
-    color: #FAF9F6;
+    color: ghostwhite;
     font-family: 'Josefin Sans', sans-serif;
     text-align: center;
 }
@@ -30,13 +30,20 @@ html{
     opacity: .7;
 }
 .Title{
+    font-family: 'Macondo', cursive;
     margin-top: 60px;
     font-size: 80px;
+    margin-bottom: 150px;
+    
 }
 .nexttitle{
+    font-family: 'Macondo', cursive;
+    position: absolute;
+    top: 18%;
+    left: 5%;
     font-size: 25px;
-    margin-top: 15px;
-    margin-bottom: 40px;
+    margin-top: 101px;
+    margin-bottom: 140px;
 }
 #line1{
     padding-left: 300px;
@@ -46,15 +53,20 @@ html{
     margin-bottom: 60px;
 }
 .direction{
+    font-family: 'Macondo', cursive;
+    position: absolute;
+    top: 18%;
+    right: 3%;
     text-align: left;
-    margin-top: 80px;
-    font-size: 60px;
-    padding-left: 80px;
-    padding-right: 400px;
+    margin-top: 65px;
+    font-size: 20px;
+    padding-left: 400px;
+    padding-right: 20px;
 }
 .myword{
     text-align: left;
     font-size: 45px;
+    margin-top: 100px;
     padding-left: 80px;
     padding-right: 400px;
 }
