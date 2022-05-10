@@ -426,7 +426,7 @@ class Target {
     circle(this.pos.x, this.pos.y, this.s);
     pop();
   }
-
+  //reference: https://thecodingtrain.com/CodingChallenges/125-fourier-series.html
   displayMode2() {
 
     push();
@@ -493,6 +493,7 @@ class Target {
   }
 }
 //particle class: for menu decoration use
+//reference: https://thecodingtrain.com/CodingChallenges/078-simple-particle-system.html
 class Particle {
   constructor(x, y) {
     this.x = x;
