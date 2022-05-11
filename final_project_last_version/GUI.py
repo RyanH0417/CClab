@@ -295,6 +295,18 @@ class GUI:
                              rely=0.008,
                              relheight=0.06,
                              relwidth=0.22)
+                             
+        self.buttonGame = Button(self.labelBottom,
+                                text="Game",
+                                font="Helvetica 10 bold",
+                                width=20,
+                                bg="#ABB2B9",
+                                command=lambda: self.startgame("g"+self.entryMsg.get()))
+
+        self.buttonGame.place(relx=0.56,
+                             rely=0.008,
+                             relheight=0.06,
+                             relwidth=0.22)
 
         self.textCons.config(cursor="arrow")
 
@@ -321,6 +333,12 @@ class GUI:
         self.textCons.insert(END, msg + "\n")
         self.textCons.config(state=DISABLED)
         self.textCons.see(END)
+    #basically passing the name to the server, but use it with "g"
+    def startgame(self, msg):
+        # self.textCons.config(state=DISABLED)
+        self.my_msg = msg
+        # print(msg)
+        self.entryMsg.delete(0, END)
 
     def proc(self):
         # print(self.msg)

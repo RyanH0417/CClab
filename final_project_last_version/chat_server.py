@@ -32,27 +32,7 @@ class Server:
         # initialize past chat indices
         self.indices = {}
         # sonnet
-        # self.sonnet_f = open('AllSonnets.txt.idx', 'rb')
-        # self.sonnet = pkl.load(self.sonnet_f)
-        # self.sonnet_f.close()
         self.sonnet = indexer.PIndex("AllSonnets.txt")
-        self.emoji = {
-        ':-)': chr(0x1F642),
-        ':-D': chr(0x1F600),
-        ':-(': chr(0x2639),
-        ':\'-(': chr(0x1F622),
-        ':-O': chr(0x1F62E),
-        ';-)': chr(0x1F609),
-        ':-P': chr(0x1F61B),
-        '>:[': chr(0x1F620),
-        ':-/': chr(0x1F914),
-        'B-)': chr(0x1F60E),
-            }
-    def emoji_message(self,message):
-        for (emoticon, emoji) in self.emoji.items():
-            message = message.replace(emoticon, emoji)
-        return message
-
     def new_client(self, sock):
         # add to all sockets and to new clients
         print('new client...')
@@ -66,7 +46,7 @@ class Server:
             msg = json.loads(myrecv(sock))
             print("login:", msg)
             if len(msg) > 0:
-
+                #reference: provided videos in brightspace gallery
                 if msg["action"] == "register":
                     name = msg['name']
                     password = msg['password']
@@ -76,7 +56,7 @@ class Server:
                         self.password[name] = password
                         mysend(sock,json.dumps({"action":"register","status":"ok"}))
                         print(name,'successfully registered')
-
+                
                 if msg["action"] == "login":
                     name = msg["name"]
                     key = msg["password"]
@@ -132,7 +112,7 @@ class Server:
         msg = myrecv(from_sock)
         if len(msg) > 0:
             # ==============================================================================
-            # handle connect request
+            # handle connect request this is implemented for you
             # ==============================================================================
             msg = json.loads(msg)
             if msg["action"] == "connect":
@@ -155,60 +135,38 @@ class Server:
                     msg = json.dumps(
                         {"action": "connect", "status": "no-user"})
                 mysend(from_sock, msg)
+            #really similar to how we deal with connect conditions
+            #because we also need to group two guys to have an online gaming
+            elif msg['action'] == 'game':
+                to_name = msg["target"]
+                from_name = self.logged_sock2name[from_sock]
+                if to_name == from_name:
+                    msg = json.dumps({"action":"game", "status":"self"})
+                elif self.group.is_member(to_name):
+                    to_sock = self.logged_name2sock[to_name]
+                    msg = json.dumps({"action":"game", "status":"success"})
+                    #passing the request and asking for another gamer to initiate his thread as well.
+                    mysend(to_sock, json.dumps({"action":"game", "status":"request", "from":from_name}))
+                else:
+                    msg = json.dumps({"action":"game", "status":"no-user"})
+                #passing success message to one client for them to initiate his thread,
+                mysend(from_sock, msg)
 # ==============================================================================
-# handle messeage exchange: one peer for now. will need multicast later
+# handle messeage exchange
 # ==============================================================================
             elif msg["action"] == "exchange":
                 from_name = self.logged_sock2name[from_sock]
                 the_guys = self.group.list_me(from_name)
                 #said = msg["from"]+msg["message"]
                 said2 = text_proc(msg["message"], from_name)
+                print(msg['message'])
                 self.indices[from_name].add_msg_and_index(said2)
                 for g in the_guys[1:]:
                     to_sock = self.logged_name2sock[g]
                     self.indices[g].add_msg_and_index(said2)
                     mysend(to_sock, json.dumps(
-                        {"action": "exchange", "from": msg["from"], "message": self.emoji_message(msg["message"])}))
-# ==============================================================================
-#                 listing available peers
-# ==============================================================================
-            elif msg["action"] == "list":
-                from_name = self.logged_sock2name[from_sock]
-                msg = self.group.list_all()
-                mysend(from_sock, json.dumps(
-                    {"action": "list", "results": msg}))
-# ==============================================================================
-#             retrieve a sonnet
-# ==============================================================================
-            elif msg["action"] == "poem":
-                poem_indx = int(msg["target"])
-                from_name = self.logged_sock2name[from_sock]
-                print(from_name + ' asks for ', poem_indx)
-                poem = self.sonnet.get_poem(poem_indx)
-                poem = '\n'.join(poem).strip()
-                print('here:\n', poem)
-                mysend(from_sock, json.dumps(
-                    {"action": "poem", "results": poem}))
-# ==============================================================================
-#                 time
-# ==============================================================================
-            elif msg["action"] == "time":
-                ctime = time.strftime('%d.%m.%y,%H:%M', time.localtime())
-                mysend(from_sock, json.dumps(
-                    {"action": "time", "results": ctime}))
-# ==============================================================================
-#                 search
-# ==============================================================================
-            elif msg["action"] == "search":
-                term = msg["target"]
-                from_name = self.logged_sock2name[from_sock]
-                print('search for ' + from_name + ' for ' + term)
-                # search_rslt = (self.indices[from_name].search(term))
-                search_rslt = '\n'.join(
-                    [x[-1] for x in self.indices[from_name].search(term)])
-                print('server side search: ' + search_rslt)
-                mysend(from_sock, json.dumps(
-                    {"action": "search", "results": search_rslt}))
+                        {"action": "exchange", "from": msg["from"], "message": msg["message"], "encrypt": msg["encrypt"]}))
+
 # ==============================================================================
 # the "from" guy has had enough (talking to "to")!
 # ==============================================================================
@@ -220,7 +178,61 @@ class Server:
                 if len(the_guys) == 1:  # only one left
                     g = the_guys.pop()
                     to_sock = self.logged_name2sock[g]
-                    mysend(to_sock, json.dumps({"action": "disconnect"}))
+                    mysend(to_sock, json.dumps(
+                        {"action": "disconnect", "msg": "everyone left, you are alone"}))
+# ==============================================================================
+#                 listing available peers
+# ==============================================================================
+            elif msg["action"] == "list":
+                from_name = self.logged_sock2name[from_sock]
+                msg = self.group.list_all(from_name)
+                mysend(from_sock, json.dumps(
+                    {"action": "list", "results": msg}))
+# ==============================================================================
+#             retrieve a sonnet 
+# ==============================================================================
+            elif msg["action"] == "poem":
+                idx = int(msg['target'])
+                try:
+                    poem = self.sonnet.get_poem(idx)
+                    if type(poem) == list:
+                        poem = "\n".join(poem)
+                    else:
+                        pass
+                except:
+                    print('Error!')
+                    poem = ''
+                print('here:\n', poem)
+                
+
+                mysend(from_sock, json.dumps(
+                    {"action": "poem", "results": poem}))
+# ==============================================================================
+#                 time
+# ==============================================================================
+            elif msg["action"] == "time":
+                ctime = time.strftime('%d.%m.%y,%H:%M', time.localtime())
+                mysend(from_sock, json.dumps(
+                    {"action": "time", "results": ctime}))
+# ==============================================================================
+#                 search: 
+# ==============================================================================
+            elif msg["action"] == "search":
+
+                
+                term = msg['target']
+                from_name = self.logged_sock2name[from_sock]
+                search_rslt = self.indices[from_name].search(term)
+                for i in range(len(search_rslt)):
+                    search_rslt[i] = f'{search_rslt[i][1]}'
+
+                search_rslt = ' '+str(search_rslt)
+                
+                print(f'server side search: {search_rslt}')
+
+                mysend(from_sock, json.dumps(
+                    {"action": "search", "results": str(search_rslt)}))
+
 # ==============================================================================
 #                 the "from" guy really, really has had enough
 # ==============================================================================
@@ -256,5 +268,5 @@ def main():
     server.run()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

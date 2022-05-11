@@ -6,6 +6,8 @@ Created on Sun Apr  5 09:58:31 2015
 """
 S_ALONE = 0
 S_TALKING = 1
+S_GAMING = 2
+
 
 #==============================================================================
 # Group class:
@@ -15,7 +17,7 @@ S_TALKING = 1
 # member functions:
 #    - join: first time in
 #    - leave: leave the system, and the group
-#    - list_me: who is in chatting with me?
+#    - list_my_peers: who is in chatting with me?
 #    - list_all: who is in the system, and the chat groups
 #    - connect: connect to a peer in a chat group, and become part of the group
 #    - disconnect: leave the chat group but stay in the system
@@ -27,7 +29,6 @@ class Group:
         self.members = {}
         self.chat_grps = {}
         self.grp_ever = 0
-
     def join(self, name):
         self.members[name] = S_ALONE
         return
@@ -82,9 +83,8 @@ class Group:
                 peer = self.chat_grps[group_key].pop()
                 self.members[peer] = S_ALONE
                 del self.chat_grps[group_key]
-        return
 
-    def list_all(self):
+    def list_all(self, me):
         # a simple minded implementation
         full_list = "Users: ------------" + "\n"
         full_list += str(self.members) + "\n"
@@ -108,6 +108,7 @@ if __name__ == "__main__":
     g = Group()
     g.join('a')
     g.join('b')
-    print(g.list_all())
+    print(g.list_all('a'))
+    g.list_all2('a')
     g.connect('a', 'b')
-    print(g.list_all())
+    print(g.list_all('b'))

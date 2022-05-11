@@ -1,6 +1,5 @@
 from chat_client_class import *
 
-
 def main():
     import argparse
     parser = argparse.ArgumentParser(description='chat client argument')
@@ -10,6 +9,4 @@ def main():
     client = Client(args)
     client.run_chat()
 
-
-if __name__ == "__main__":
-    main()
+main()
